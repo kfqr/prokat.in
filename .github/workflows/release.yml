@@ -2,6 +2,20 @@ name: Release
 
 on:
   workflow_dispatch:
+    inputs:
+        logLevel:
+          description: 'Log level'
+          required: true
+          default: 'warning'
+          type: choice
+          options:
+          - info
+          - warning
+          - debug
+        tag:
+          description: 'Manual release tag'
+          required: true
+          type: string
   push:
     tags:
       - 'v*'
@@ -20,12 +34,14 @@ jobs:
       - name: Build assets
         run: yarn build
 
-      - name: Create Release
-        uses: actions/create-release@v1
+      - name: Print
+        run: |
+            echo "Tags: $TAG"
+            echo "Environment: $ENVIRONMENT"
+            echo "GHT: $GITHUB_TOKEN"
+            echo "Dir: $(pwd)"
+            ls -la public/build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
+          TAG: ${{  github.ref  || inputs.tag }}
+       
