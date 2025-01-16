@@ -49,6 +49,11 @@ jobs:
           name: dist-without-vendor
           path: |
             .
+            !./*.js
+            !./
             !.github
+            !node_modules
             !vendor
+            !resources/js
+            !resources/css
        
