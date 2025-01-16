@@ -37,11 +37,7 @@ jobs:
       - name: Print
         run: |
             echo "Tag: $TAG"
-            echo "Dir: $(pwd)"
-            tree public/build
-            echo "==="
-            ls -la storage
-            ls -la bootstrap
+            tree -fa bootstrap
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: ${{ inputs.tag || github.ref }}
@@ -52,6 +48,7 @@ jobs:
           name: dist-without-vendor
           path: |
             ./
+            .gitignore
             !./*.js
             !./READ*
             !./[jp]*.json
