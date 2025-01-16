@@ -38,8 +38,8 @@ jobs:
         run: |
             echo "Tag: $TAG"
             echo "Dir: $(pwd)"
-            ls -la public/build
+            ls -l public/build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG: ${{  inputs.tag github.ref }}
+          TAG: ${{ inputs.tag || github.ref }}
        
