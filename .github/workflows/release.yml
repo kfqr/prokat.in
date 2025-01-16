@@ -25,40 +25,41 @@ jobs:
     runs-on: ubuntu-22.04
     permissions:
       contents: write
-      
+
     steps:
-           
-      - name: Setup Yarn
-        uses: mskelton/setup-yarn@v3
-        
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+       
       - name: Build assets
         run: yarn build
-
-      - name: Print
-        run: |
-            echo "Tag: $TAG"
-            tree -fa bootstrap
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG: ${{ inputs.tag || github.ref }}
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v4
         with:
           name: dist-without-vendor
+          include-hidden-files: true
           path: |
             ./
-            .gitignore
             !./*.js
             !./READ*
             !./[jp]*.json
             !./phpu*
             !./yarn*
-            !.github
-            !./database/factories
-            !./tests
-            !./node_modules
-            !./vendor
-            !./resources/js
-            !./resources/css
+            !.github/
+            !.git/
+            !./database/factories/
+            !./storage/debugbar/
+            !./tests/
+            !./node_modules/
+            !./vendor/
+            !./resources/js/
+            !./resources/css/
        
