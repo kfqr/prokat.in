@@ -36,7 +36,7 @@ jobs:
       - name: Archive production artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: release-${{ inputs.tag || github.ref_name }}-${{ github.run_id }}
+          name: release-${{ inputs.tag || github.ref_name }}-${{ github.run_number }}
           overwrite: true
           include-hidden-files: true
           path: |
@@ -57,3 +57,10 @@ jobs:
             !./resources/js/
             !./resources/css/
        
+  deploy:
+    runs-on: ubuntu-22.04
+    needs: release
+    steps:
+      - name: PRINT
+        run: |
+          echo ${{ secrets.HOSTING_FTP_URL }}
