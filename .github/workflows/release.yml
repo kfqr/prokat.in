@@ -1,4 +1,5 @@
 name: Release
+run-name: Release with new tag ${{ inputs.tag || github.ref }}
 
 on:
   workflow_dispatch:
