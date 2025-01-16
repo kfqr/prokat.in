@@ -6,7 +6,6 @@ on:
     inputs:
         tag:
           description: 'Manual release tag'
-          required: true
           type: string
   push:
     tags:
