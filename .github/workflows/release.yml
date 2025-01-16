@@ -63,4 +63,6 @@ jobs:
     steps:
       - name: PRINT
         run: |
-          echo ${{ secrets.HOSTING_FTP_URL }}
+          echo "DEPLOY over ssh:"
+          echo ${{ vars.DEPLOYMENT_USER }}@${{ vars.DEPLOYMENT_HOST }} -p ${{ vars.DEPLOYMENT_PORT }}
+          echo "KEY: ${{ secrets.DEPLOYMENT_KEY }}"
