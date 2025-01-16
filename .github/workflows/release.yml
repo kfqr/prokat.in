@@ -50,7 +50,6 @@ jobs:
           path: |
             .
             !./*.js
-            !./
             !.github
             !node_modules
             !vendor
